@@ -20,8 +20,10 @@ app.get("/historics", async (req, res) => {
   }
 });
 
+//test
+
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json([{ message: "Welcome to bezkoder application." }]);
 });
 
 //get a todo
@@ -36,14 +38,31 @@ app.get("/historic/:id", async (req, res) => {
     console.error(err.message);
   }
 });
+
 //create a todo
+
+// app.post("/historic/create", async (req, res) => {
+//   try {
+//     const { language } = req.body;
+//     const newHist = await pool.query(
+//       "INSERT INTO hist (language) VALUES ($1) RETURNING *",
+//       [language]
+//     );
+
+//     res.json(newHist.rows);
+//   } catch (err) {
+//     console.error(err.message);
+//   }
+// });
+
+// create multiple hist
 
 app.post("/historic/create", async (req, res) => {
   try {
-    const { language } = req.body;
+    const { language, owner, title, description } = req.body;
     const newHist = await pool.query(
-      "INSERT INTO hist (language) VALUES ($1) RETURNING *",
-      [language]
+      "INSERT INTO hist (language,owner,title,description ) VALUES ($1,$2,$3,$4) RETURNING *",
+      [language, owner, title, description]
     );
 
     res.json(newHist.rows);
@@ -97,6 +116,6 @@ app.delete("/historic/delete", async (req, res) => {
   }
 });
 
-app.listen(8080, () => {
-  console.log("listening port 8080");
+app.listen(5000, () => {
+  console.log("listening port 5000");
 });

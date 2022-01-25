@@ -1,75 +1,90 @@
 import React, { useEffect, useState } from "react";
 import mainLogo from "../../assets/github-logo.png";
-import { Select, Row, Col } from "antd";
+import { Select, Row, Col, Spin } from "antd";
 import Card from "../../components/Card/Card";
 import { Container } from "./styles";
+
+import axios from "axios";
 
 import { fetchRepositories } from "../../services/integrationApi";
 
 const { Option } = Select;
 
 const Home: React.FC = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState("");
-  const [data, setData] = React.useState<any>([]);
+  const [selectedLanguage, setSelectedLanguage] = useState<any>(null);
+  const [data, setData] = useState<any>([]);
+  const [loading, setLoading] = useState<any>(false);
 
   const handleFetchRepositories = (language: string) => {
+    setLoading(true);
+    setData([]);
     fetchRepositories(language)
       .then((res) => {
         setData(res.data.items);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
   };
 
   const onChange = (e: string) => {
+    setSelectedLanguage(e);
     handleFetchRepositories(e);
   };
 
   useEffect(() => {
-    handleFetchRepositories(selectedLanguage);
-  }, []);
-
-  useEffect(() => {
-    handleFetchRepositories(selectedLanguage);
-  }, [selectedLanguage]);
+    if (data.length > 0) {
+      data.map((item: any) => {
+        axios({
+          method: "post",
+          url: "/historic/create",
+          headers: {},
+          data: {
+            language: item.language,
+            owner: item.owner.login,
+            title: item.name,
+            description: item.description,
+          },
+        });
+      });
+    }
+  }, [data]);
 
   return (
     <Container>
       <div>
-        <img src={mainLogo} alt="fireSpot" />
+        <img src={mainLogo} alt="fireSpot" data-testid="logo" />
       </div>
-      <div>
-        <Select
-          showSearch
-          placeholder="Select a person"
-          optionFilterProp="children"
-          onChange={onChange}
-          //   onSearch={onSearch}
-          //   filterOption={(input, option) =>
-          //     option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          //   }
-        >
+      <div className="container_select">
+        <Select placeholder="Select a language" onChange={onChange}>
           <Option value="java">Java</Option>
           <Option value="python">Python</Option>
           <Option value="javascript">Javascript</Option>
           <Option value="typescript">Typescript</Option>
           <Option value="ruby">Ruby</Option>
         </Select>
+      </div>
 
-        {console.log("data", data)}
+      {console.log("data", data)}
 
-        <div className="list_repo">
-          <Row gutter={[24, 24]}>
+      <div className="list_repo" data-testid="list_repo">
+        {console.log("loading", loading)}
+        {console.log("selectedLanguage", selectedLanguage)}
+        {!loading ? (
+          <Row gutter={[24, 24]} className="row_list">
             {data.map((item: any) => {
               return (
-                <Col span={24}>
+                <Col span={14}>
                   <Card {...item} />
                 </Col>
               );
             })}
           </Row>
-        </div>
+        ) : (
+          <Spin size="large" />
+        )}
       </div>
     </Container>
   );

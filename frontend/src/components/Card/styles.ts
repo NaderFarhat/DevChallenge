@@ -15,8 +15,8 @@ export const Header = styled.div`
     position: relative;
     top: 0;
     right: 4px;
-    width: 48px;
-    height: 48px;
+    width: 116px;
+    height: 116px;
     background: #fff;
     border-radius: 4px;
   }
@@ -24,10 +24,12 @@ export const Header = styled.div`
   .title_card {
     font-size: 18px;
     line-height: 1.4;
+    margin-left: 20px;
   }
 
   .subTitle_card {
     font-size: 14px;
+    margin-left: 20px;
   }
 
   .subTitle_card-name {
@@ -37,14 +39,16 @@ export const Header = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: 6px 0 10px;
+  padding: 12px 0 10px;
 
   .description_card {
     margin: 0 5px 0 0;
+    padding: 0px 20px;
     font: 18px/24px Georgia, "Times New Roman", Palatino, serif;
     overflow: hidden;
     clear: both;
     word-wrap: break-word;
+    text-align: left;
   }
 `;
 
