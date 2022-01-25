@@ -4,11 +4,7 @@ const app = express();
 
 const pool = require("./db");
 
-app.use(express.json()); //=> req.body
-
-//Routes
-
-//get all todos
+app.use(express.json());
 
 app.get("/historics", async (req, res) => {
   try {
@@ -20,13 +16,9 @@ app.get("/historics", async (req, res) => {
   }
 });
 
-//test
-
 app.get("/", (req, res) => {
   res.json([{ message: "Welcome to bezkoder application." }]);
 });
-
-//get a todo
 
 app.get("/historic/:id", async (req, res) => {
   console.log("req.params", req.params);
@@ -38,24 +30,6 @@ app.get("/historic/:id", async (req, res) => {
     console.error(err.message);
   }
 });
-
-//create a todo
-
-// app.post("/historic/create", async (req, res) => {
-//   try {
-//     const { language } = req.body;
-//     const newHist = await pool.query(
-//       "INSERT INTO hist (language) VALUES ($1) RETURNING *",
-//       [language]
-//     );
-
-//     res.json(newHist.rows);
-//   } catch (err) {
-//     console.error(err.message);
-//   }
-// });
-
-// create multiple hist
 
 app.post("/historic/create", async (req, res) => {
   try {
@@ -70,8 +44,6 @@ app.post("/historic/create", async (req, res) => {
     console.error(err.message);
   }
 });
-
-//update a todo
 
 app.put("/historic/update/:id", async (req, res) => {
   try {
@@ -89,8 +61,6 @@ app.put("/historic/update/:id", async (req, res) => {
   }
 });
 
-//delete a todo
-
 app.delete("/historic/delete/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -103,8 +73,6 @@ app.delete("/historic/delete/:id", async (req, res) => {
     console.error(err.message);
   }
 });
-
-//delete all
 
 app.delete("/historic/delete", async (req, res) => {
   try {
