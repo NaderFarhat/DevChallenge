@@ -16,10 +16,6 @@ app.get("/historics", async (req, res) => {
   }
 });
 
-app.get("/", (req, res) => {
-  res.json([{ message: "Welcome to bezkoder application." }]);
-});
-
 app.get("/historic/:id", async (req, res) => {
   console.log("req.params", req.params);
   const { id } = req.params;
