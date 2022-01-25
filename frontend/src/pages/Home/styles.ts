@@ -1,5 +1,6 @@
 import styled from "styled-components";
 export const Container = styled.div`
+  padding: 0 0 70px 0;
   .list_repo {
     margin-top: 20px;
     width: 100%;
@@ -16,5 +17,11 @@ export const Container = styled.div`
 
   .row_list {
     justify-content: center;
+  }
+
+  .input_search {
+    max-width: 360px;
+    border-radius: 20px;
+    margin-top: 30px;
   }
 `;

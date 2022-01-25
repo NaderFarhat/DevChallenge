@@ -1,5 +1,6 @@
 import React from "react";
 import { Avatar, Row, Col, Typography } from "antd";
+import mainLogo from "../../assets/github-logo.png";
 
 import { Container, Header, Content, Footer } from "./styles";
 
@@ -30,6 +31,14 @@ const Card: React.FC = (props: any) => (
               {props && props.owner && props.owner.login}
             </span>
           </Row>
+        </Col>
+        <Col className="col_image">
+          <img
+            src={mainLogo}
+            alt="fireSpot"
+            data-testid="logo"
+            className="logo"
+          />
         </Col>
       </Row>
     </Header>

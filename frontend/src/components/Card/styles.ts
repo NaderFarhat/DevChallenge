@@ -11,6 +11,12 @@ export const Container = styled.div`
 export const Header = styled.div`
   padding: 3px 0 4px 10px;
 
+  .col_image {
+    position: absolute;
+    right: 24px;
+}
+  }
+
   .ant-avatar {
     position: relative;
     top: 0;
@@ -35,6 +41,11 @@ export const Header = styled.div`
   .subTitle_card-name {
     font-size: 14px;
     color: #707070;
+  }
+
+  .logo {
+    heigth: 16px;
+    width: 16px;
   }
 `;
 

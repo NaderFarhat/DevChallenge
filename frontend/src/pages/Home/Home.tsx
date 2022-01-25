@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import mainLogo from "../../assets/github-logo.png";
-import { Select, Row, Col, Spin } from "antd";
+import { Select, Row, Col, Spin, Input } from "antd";
 import Card from "../../components/Card/Card";
+import ModalDetail from "../../components/Modal/Modal";
 import { Container } from "./styles";
 
 import axios from "axios";
@@ -13,7 +14,10 @@ const { Option } = Select;
 const Home: React.FC = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<any>(null);
   const [data, setData] = useState<any>([]);
+  const [itemData, setItemData] = useState<any>();
+  const [filteredData, setFilteredData] = useState<any>([]);
   const [loading, setLoading] = useState<any>(false);
+  const [visibleModal, setVisibleModal] = useState<any>(false);
 
   const handleFetchRepositories = (language: string) => {
     setLoading(true);
@@ -21,6 +25,7 @@ const Home: React.FC = () => {
     fetchRepositories(language)
       .then((res) => {
         setData(res.data.items);
+        setFilteredData(res.data.items);
         setLoading(false);
       })
       .catch((error) => {
@@ -34,10 +39,27 @@ const Home: React.FC = () => {
     handleFetchRepositories(e);
   };
 
+  const handleOnChange = (e: any) => {
+    const keyword = e.target.value;
+
+    if (keyword !== "") {
+      const results = data.filter((item: any) => {
+        return item.name.toLowerCase().startsWith(keyword.toLowerCase());
+      });
+      setFilteredData(results);
+    } else {
+      setFilteredData(data);
+    }
+  };
+
+  useEffect(() => {
+    handleFetchRepositories(selectedLanguage);
+  }, [selectedLanguage]);
+
   useEffect(() => {
     if (data.length > 0) {
       data.map((item: any) => {
-        axios({
+        return axios({
           method: "post",
           url: "/historic/create",
           headers: {},
@@ -52,9 +74,25 @@ const Home: React.FC = () => {
     }
   }, [data]);
 
+  const handleCancel = () => {
+    setVisibleModal(false);
+  };
+
+  const handleOpenModal = (item: any) => {
+    setItemData(item);
+    setVisibleModal(true);
+  };
+
   return (
     <Container>
       <div>
+        {visibleModal && (
+          <ModalDetail
+            isVisible={visibleModal}
+            handleCancel={handleCancel}
+            itemData={itemData}
+          />
+        )}
         <img src={mainLogo} alt="fireSpot" data-testid="logo" />
       </div>
       <div className="container_select">
@@ -67,16 +105,24 @@ const Home: React.FC = () => {
         </Select>
       </div>
 
-      {console.log("data", data)}
+      <Input
+        placeholder="Search..."
+        className="input_search"
+        onChange={handleOnChange}
+      ></Input>
 
       <div className="list_repo" data-testid="list_repo">
-        {console.log("loading", loading)}
-        {console.log("selectedLanguage", selectedLanguage)}
         {!loading ? (
           <Row gutter={[24, 24]} className="row_list">
-            {data.map((item: any) => {
+            {filteredData.map((item: any) => {
               return (
-                <Col span={14}>
+                <Col
+                  xs={24}
+                  lg={12}
+                  onClick={() => {
+                    handleOpenModal(item);
+                  }}
+                >
                   <Card {...item} />
                 </Col>
               );
