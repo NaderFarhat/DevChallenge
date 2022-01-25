@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import mainLogo from "../../assets/github-logo.png";
 import { Select, Row, Col } from "antd";
 import Card from "../../components/Card/Card";
+import { Container } from "./styles";
 
 import { fetchRepositories } from "../../services/integrationApi";
 
@@ -34,7 +35,7 @@ const Home: React.FC = () => {
   }, [selectedLanguage]);
 
   return (
-    <div>
+    <Container>
       <div>
         <img src={mainLogo} alt="fireSpot" />
       </div>
@@ -58,19 +59,19 @@ const Home: React.FC = () => {
 
         {console.log("data", data)}
 
-        <Row gutter={[48, 48]}>
-          {" "}
-          {data.map((item: any) => {
-            // console.log("item", item);
-            return (
-              <Col span={6}>
-                <Card {...item} />
-              </Col>
-            );
-          })}
-        </Row>
+        <div className="list_repo">
+          <Row gutter={[24, 24]}>
+            {data.map((item: any) => {
+              return (
+                <Col span={24}>
+                  <Card {...item} />
+                </Col>
+              );
+            })}
+          </Row>
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

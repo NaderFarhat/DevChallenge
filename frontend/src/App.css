@@ -3,7 +3,7 @@
 .App {
   text-align: center;
   height: 100vh;
-  padding: 30px;
+  padding: 30px 10em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
