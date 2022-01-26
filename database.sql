@@ -1,4 +1,4 @@
-CREATE DATABASE historic_database;
+-- CREATE DATABASE historic_database;
 
 --\c into historic_database
 
