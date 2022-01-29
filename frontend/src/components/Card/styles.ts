@@ -55,11 +55,13 @@ export const Content = styled.div`
   .description_card {
     margin: 0 5px 0 0;
     padding: 0px 20px;
+    width: 375px;
     font: 18px/24px Georgia, "Times New Roman", Palatino, serif;
     overflow: hidden;
     clear: both;
     word-wrap: break-word;
     text-align: left;
+    font-size: 12px;
   }
 `;
 

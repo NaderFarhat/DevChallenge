@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Modal, Button, Row, Col, Avatar, Typography } from "antd";
 
 import { Container } from "./styles";
 import star from "../../assets/star.png";
 import fork from "../../assets/fork.png";
 import eye from "../../assets/eye.png";
+import github from "../../assets/GitHub_Logo_2.png";
 
 import moment from "moment";
 
@@ -32,7 +33,7 @@ export default function ModalDetail(
           {console.log("isVisible", isVisible)}
           {console.log("handleCancel", handleCancel)}
           <Row>
-            <Col>
+            <Col span={4}>
               <Avatar
                 size={64}
                 src={
@@ -45,12 +46,15 @@ export default function ModalDetail(
                 data-testid="avatar"
               />
             </Col>
-            <Col className="col_text-pushed ">
+            <Col className="col_text-pushed " span={12}>
               <Text className="text_modal">{isVisible.itemData.name}</Text>
             </Col>
-            <Text className="text_modal-pushed">
-              {moment(isVisible.itemData.pushed_at).format("DD/MM/YYYY")}
-            </Text>
+            <Col span={4} offset={2}>
+              {" "}
+              <Text className="text_modal-pushed">
+                {moment(isVisible.itemData.pushed_at).format("DD/MM/YYYY")}
+              </Text>
+            </Col>
           </Row>
           <Row className="row-icons">
             <img src={fork} alt="fork" data-testid="fork" className="fork" />
@@ -63,6 +67,14 @@ export default function ModalDetail(
           <Row className="row-icons">
             <img src={eye} alt="eye" data-testid="eye" className="eye" />
             <Text strong>{`${isVisible.itemData.watchers} Watches`}</Text>
+          </Row>
+          <Row className="row-github">
+            <img
+              src={github}
+              alt="eye"
+              data-testid="eye"
+              className="github-logo"
+            />
           </Row>
         </Container>
       </Modal>

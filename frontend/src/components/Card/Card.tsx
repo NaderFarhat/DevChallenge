@@ -11,6 +11,7 @@ const Card: React.FC = (props: any) => (
     <Header>
       <Row>
         <Col>
+          {console.log("props", props)}
           <Avatar
             size={116}
             src={
@@ -31,6 +32,19 @@ const Card: React.FC = (props: any) => (
               {props && props.owner && props.owner.login}
             </span>
           </Row>
+          <Row>
+            <h1 className="subTitle_card">Language &nbsp;</h1>
+            <span className="subTitle_card-name">
+              {props && props.language}
+            </span>
+          </Row>
+          {/* <Row>
+            <Content>
+              <Title className="description_card" ellipsis>
+                {props.description}
+              </Title>
+            </Content>
+          </Row> */}
         </Col>
         <Col className="col_image">
           <img
@@ -42,11 +56,11 @@ const Card: React.FC = (props: any) => (
         </Col>
       </Row>
     </Header>
-    <Content>
+    {/* <Content>
       <Title className="description_card" ellipsis>
         {props.description}
       </Title>
-    </Content>
+    </Content> */}
     <Footer>
       <Row>
         <Col className="col_footer">

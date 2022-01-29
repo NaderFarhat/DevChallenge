@@ -12,12 +12,12 @@ import { fetchRepositories } from "../../services/integrationApi";
 const { Option } = Select;
 
 const Home: React.FC = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState<any>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<any | null>(null);
   const [data, setData] = useState<any>([]);
   const [itemData, setItemData] = useState<any>();
   const [filteredData, setFilteredData] = useState<any>([]);
-  const [loading, setLoading] = useState<any>(false);
-  const [visibleModal, setVisibleModal] = useState<any>(false);
+  const [loading, setLoading] = useState<Boolean>(false);
+  const [visibleModal, setVisibleModal] = useState<Boolean>(false);
 
   const handleFetchRepositories = (language: string) => {
     setLoading(true);
@@ -53,6 +53,7 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
+    console.log("selectedLanguage", selectedLanguage);
     handleFetchRepositories(selectedLanguage);
   }, [selectedLanguage]);
 

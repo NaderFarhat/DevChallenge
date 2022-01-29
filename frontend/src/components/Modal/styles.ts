@@ -22,12 +22,12 @@ export const Container = styled.div`
 
   .text_modal-pushed {
     color: gray;
-    position: relative;
-    top: 0;
-    left: 90px;
   }
 
   .col_text-pushed {
+    display: flex;
+    justify-content: center;
+    align-self: center;
     width: 220px;
   }
 
@@ -46,5 +46,15 @@ export const Container = styled.div`
   .row-icons {
     display: flex;
     align-items: center;
+    margin-top: 2px;
+  }
+
+  .row-github {
+    display: flex;
+    justify-content: end;
+  }
+
+  .github-logo {
+    width: 70px;
   }
 `;

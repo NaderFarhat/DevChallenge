@@ -16,7 +16,7 @@ export const Container = styled.div`
   }
 
   .row_list {
-    justify-content: center;
+    justify-content: left !important;
   }
 
   .input_search {
